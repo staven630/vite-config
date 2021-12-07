@@ -56,17 +56,26 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         '@': resolve('src'),
       },
     },
-    css: {
-      preprocessorOptions: {
-        less: {
-          // additionalData: `@text-color: red;`,
-          additionalData: '@import "@/assets/less/variables.less";',
-          javascriptEnabled: true,
-        },
-        // scss: {
-        //   additionalData: `$injectedColor: orange;`,
-        // },
-      },
-    },
+    // css: {
+    //   preprocessorOptions: {
+    //     less: {
+    //       additionalData: `@text-color: red;`,
+    //       // additionalData: '@import "@/assets/less/variables.less";',
+    //       javascriptEnabled: true,
+    //     },
+    //     scss: {
+    //       additionalData: `$injectedColor: orange;`,
+    //     },
+    //   },
+    // },
+    // server: {
+    //   proxy: {
+    //     '/api': {
+    //       target: 'http://192.168.1.163:8081/',
+    //       changeOrigin: true,
+    //       rewrite: (url) => url.replace(/^\/api/, ''),
+    //     },
+    //   },
+    // },
   }
 }

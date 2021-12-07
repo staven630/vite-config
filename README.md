@@ -10,6 +10,7 @@
 
 - [√ 定义全局变量](#global)
 - [√ 配置路径别名 alias](#alias)
+- [√ 配置代理 Proxy](#proxy)
 - [√ 使用 TSX/JSX](#jsx)
 - [√ SFC 支持 name 属性](#sfc)
 - [√ ESlint 错误显示在浏览器中](#eslint)
@@ -18,10 +19,11 @@
 - [√ 生成雪碧图](#sprite)
 - [√ 按需加载 ElementPlus、Ant Design Vue](#unplugin)
 - [√ esbuild error](#esbuild)
+<!--
 
 ### <span id="">✅ </span>
 
-[▲ 回顶部](#top)
+[▲ 回顶部](#top) -->
 
 ### <span id="global">✅ 定义全局变量</span>
 
@@ -103,9 +105,8 @@ VITE_BASE_PATH = /prod
 ```json
 "scripts": {
   "dev": "vite --mode dev",
-  "stage": "vite --mode stage",
+  "stage": "vue-tsc --noEmit && vite build --mode stage",
   "prod": "vue-tsc --noEmit && vite build --mode prod",
-  "build": "vue-tsc --noEmit && vite build",
 },
 ```
 
@@ -128,6 +129,18 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 ```
 
 &emsp;&emsp;在 vite.config.ts 中可以使用 process.env 上挂载的变量。项目中，Vite 会在一个特殊的 import.meta.env 对象上暴露环境变量。默认以"VITE\_"开头的变量，将被挂载在 import.meta.env 对象上。
+
+&emsp;&emsp;在 src/env.d.ts 中添加以下信息,可实现环境变量代码自动提示：
+
+```ts
+interface ImportMetaEnv {
+  VITE_BASE_URL: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
+```
 
 [▲ 回顶部](#top)
 
@@ -164,6 +177,9 @@ npx pnpm i -D @types/node
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": ["src/*"]
     }
@@ -202,6 +218,38 @@ export default ({ mode }: ConfigEnv): UserConfig => {
   }
 }
 ```
+
+[▲ 回顶部](#top)
+
+<span id="proxy">✅ 配置代理 Proxy</span>
+
+```js
+export default ({ mode }: ConfigEnv): UserConfig => {
+  return {
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://192.168.1.163:8081/',
+          changeOrigin: true,
+          rewrite: (url) => url.replace(/^\/api/, ''),
+        },
+      },
+    },
+  }
+}
+```
+
+- target
+
+&emsp;&emsp;实际的后端 api 地址。如请求/api/getUserInfo 会转发到http://192.168.1.163:8081/api/getUserInfo。
+
+- changeOrigin
+
+&emsp;&emsp;是否改写 origin。设为 true，则请求 header 中 origin 将会与 target 配置项的域名一致。
+
+- rewrite
+
+&emsp;&emsp;重写转发的请求链接。
 
 [▲ 回顶部](#top)
 
@@ -306,6 +354,88 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         externals: ['path'],
       }),
     ],
+  }
+}
+```
+
+[▲ 回顶部](#top)
+
+### <span id="variables">✅ 提供全局 less、scss 变量</span>
+
+##### 提供全局 less 变量
+
+- 直接提供变量
+
+```ts
+export default ({ mode }: ConfigEnv): UserConfig => {
+  return {
+    css: {
+      preprocessorOptions: {
+        less: {
+          additionalData: `@injectedColor: red;`,
+          javascriptEnabled: true,
+        },
+      },
+    },
+  }
+}
+```
+
+- 通过导入 less 文件提供变量
+
+```ts
+import path from 'path'
+
+const resolve = (dir) => path.resolve(__dirname, dir)
+
+export default ({ mode }: ConfigEnv): UserConfig => {
+  return {
+    css: {
+      preprocessorOptions: {
+        less: {
+          additionalData: '@import "@/assets/less/variables.less";',
+          javascriptEnabled: true,
+        },
+      },
+    },
+  }
+}
+```
+
+##### 提供全局 scss 变量
+
+- 直接提供变量
+
+```ts
+export default ({ mode }: ConfigEnv): UserConfig => {
+  return {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `$injectedColor: orange;`,
+        },
+      },
+    },
+  }
+}
+```
+
+- 通过导入 less 文件提供变量
+
+```ts
+import path from 'path'
+
+const resolve = (dir) => path.resolve(__dirname, dir)
+
+export default ({ mode }: ConfigEnv): UserConfig => {
+  return {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/assets/scss/variables.scss";`,
+        },
+      },
+    },
   }
 }
 ```
@@ -421,6 +551,10 @@ Emitted 'error' event on ChildProcess instance at:
     at Process.ChildProcess._handle.onexit (node:internal/child_process:288:12)
     at onErrorNT (node:internal/child_process:480:16)
     at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+```
+
+```sh
+node ./node_modules/esbuild/install.js
 ```
 
 [▲ 回顶部](#top)
