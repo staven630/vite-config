@@ -335,23 +335,27 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
 ### <span id="externals">✅ 提供 externals</span>
 
-&emsp;&emsp;[vite-plugin-commonjs-externals](https://github.com/xiaoxiangmoe/vite-plugin-commonjs-externals):为 Vite 提供 commonjs 外部支持
+&emsp;&emsp;[vite-plugin-externals](https://github.com/crcong/vite-plugin-externals):为 Vite 提供 commonjs 外部支持
 
 ```sh
-npx pnpm i -D vite-plugin-commonjs-externals
+npx pnpm i -D vite-plugin-externals
 ```
 
 > vite.config.ts
 
 ```ts
 import { UserConfig, ConfigEnv, loadEnv } from 'vite'
-import commonjsExternals from 'vite-plugin-commonjs-externals'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
   return {
     plugins: [
-      commonjsExternals({
-        externals: ['path'],
+      viteExternalsPlugin({
+        vue: 'Vue',
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        // value support chain, tranform to window['React']['lazy']
+        lazy: ['React', 'lazy'],
       }),
     ],
   }

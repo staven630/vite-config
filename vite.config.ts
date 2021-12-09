@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import eslintPlugin from 'vite-plugin-eslint'
-import commonjsExternals from 'vite-plugin-commonjs-externals'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 
 import Components from 'unplugin-vue-components/vite'
@@ -43,8 +43,12 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         // 是否压缩
         svgoOptions: true,
       }),
-      commonjsExternals({
-        externals: ['path'],
+      viteExternalsPlugin({
+        vue: 'Vue',
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        // value support chain, tranform to window['React']['lazy']
+        lazy: ['React', 'lazy'],
       }),
       Components({
         resolvers: [ElementPlusResolver(), AntDesignVueResolver()],
