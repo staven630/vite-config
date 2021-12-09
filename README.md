@@ -221,7 +221,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
 [▲ 回顶部](#top)
 
-<span id="proxy">✅ 配置代理 Proxy</span>
+### <span id="proxy">✅ 配置代理 Proxy</span>
 
 ```js
 export default ({ mode }: ConfigEnv): UserConfig => {
