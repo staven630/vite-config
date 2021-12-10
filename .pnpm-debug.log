@@ -1,0 +1,613 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "vite-config",
+      "version": "0.0.0",
+      "scripts": {
+        "dev": "vite --mode dev",
+        "stage": "vite --mode stage",
+        "prod": "vue-tsc --noEmit && vite build --mode prod",
+        "build": "vue-tsc --noEmit && vite build",
+        "serve": "vite preview",
+        "lint:js": "eslint --ext .ts,vue --ignore-path .gitignore .",
+        "lint:css": "stylelint src/**/*.{css,scss,vue}"
+      },
+      "dependencies": {
+        "ant-design-vue": "^2.2.8",
+        "element-plus": "^1.2.0-beta.3",
+        "vue": "^3.2.16"
+      },
+      "devDependencies": {
+        "@types/node": "^16.11.10",
+        "@typescript-eslint/eslint-plugin": "^5.4.0",
+        "@typescript-eslint/parser": "^5.4.0",
+        "@vitejs/plugin-vue": "^1.9.3",
+        "@vitejs/plugin-vue-jsx": "^1.3.0",
+        "@vue/eslint-config-prettier": "^6.0.0",
+        "@vue/eslint-config-typescript": "^9.1.0",
+        "@zougt/some-loader-utils": "^1.4.0-beta.5",
+        "@zougt/vite-plugin-theme-preprocessor": "^1.4.0",
+        "color": "^4.1.0",
+        "eslint": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-vue": "^8.1.1",
+        "less": "^4.1.2",
+        "less-loader": "^10.2.0",
+        "prettier": "^2.4.1",
+        "rollup-plugin-visualizer": "^5.5.2",
+        "typescript": "^4.4.3",
+        "unplugin-element-plus": "^0.1.3",
+        "unplugin-vue-components": "^0.17.2",
+        "vite": "^2.6.4",
+        "vite-plugin-eslint": "^1.3.0",
+        "vite-plugin-externals": "^0.3.0",
+        "vite-plugin-svg-icons": "^1.0.5",
+        "vite-plugin-vue-setup-extend": "^0.1.0",
+        "vue-tsc": "^0.3.0"
+      },
+      "husky": {
+        "hooks": {
+          "pre-commit": "lint-staged"
+        }
+      },
+      "lint-staged": {
+        "*.{ts,vue}": "eslint --fix",
+        "*.{css,scss,vue}": "stylelint --fix",
+        "*": "prettier -w -u"
+      }
+    },
+    "prefix": "D:\\github\\vite-config"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "D:\\.pnpm-store\\v3",
+    "virtualStoreDir": "D:\\github\\vite-config\\node_modules\\.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "D:\\github\\vite-config",
+    "stage": "resolution_started"
+  },
+  "4 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@types/node/16.11.10",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/node",
+      "rawSpec": "^16.11.10"
+    }
+  },
+  "5 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.4.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/eslint-plugin",
+      "rawSpec": "^5.4.0"
+    }
+  },
+  "6 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@typescript-eslint/parser/5.4.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/parser",
+      "rawSpec": "^5.4.0"
+    }
+  },
+  "7 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@vitejs/plugin-vue/1.10.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vitejs/plugin-vue",
+      "rawSpec": "^1.9.3"
+    }
+  },
+  "8 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@vitejs/plugin-vue-jsx/1.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vitejs/plugin-vue-jsx",
+      "rawSpec": "^1.3.0"
+    }
+  },
+  "9 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@vue/eslint-config-prettier/6.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vue/eslint-config-prettier",
+      "rawSpec": "^6.0.0"
+    }
+  },
+  "10 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@vue/eslint-config-typescript/9.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vue/eslint-config-typescript",
+      "rawSpec": "^9.1.0"
+    }
+  },
+  "11 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@zougt/some-loader-utils/1.4.0-beta.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@zougt/some-loader-utils",
+      "rawSpec": "^1.4.0-beta.5"
+    }
+  },
+  "12 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/@zougt/vite-plugin-theme-preprocessor/1.4.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@zougt/vite-plugin-theme-preprocessor",
+      "rawSpec": "^1.4.0"
+    }
+  },
+  "13 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/color/4.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "color",
+      "rawSpec": "^4.1.0"
+    }
+  },
+  "14 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/eslint/8.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint",
+      "rawSpec": "^8.3.0"
+    }
+  },
+  "15 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/eslint-plugin-prettier/4.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-prettier",
+      "rawSpec": "^4.0.0"
+    }
+  },
+  "16 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/eslint-plugin-vue/8.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-vue",
+      "rawSpec": "^8.1.1"
+    }
+  },
+  "17 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/less/4.1.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "less",
+      "rawSpec": "^4.1.2"
+    }
+  },
+  "18 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/less-loader/10.2.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "less-loader",
+      "rawSpec": "^10.2.0"
+    }
+  },
+  "19 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/prettier/2.4.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "prettier",
+      "rawSpec": "^2.4.1"
+    }
+  },
+  "20 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/rollup-plugin-visualizer/5.5.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "rollup-plugin-visualizer",
+      "rawSpec": "^5.5.2"
+    }
+  },
+  "21 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/typescript/4.5.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "typescript",
+      "rawSpec": "^4.4.3"
+    }
+  },
+  "22 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/unplugin-element-plus/0.1.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "unplugin-element-plus",
+      "rawSpec": "^0.1.3"
+    }
+  },
+  "23 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/unplugin-vue-components/0.17.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "unplugin-vue-components",
+      "rawSpec": "^0.17.2"
+    }
+  },
+  "24 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/vite/2.6.14",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite",
+      "rawSpec": "^2.6.4"
+    }
+  },
+  "25 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/vite-plugin-eslint/1.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-eslint",
+      "rawSpec": "^1.3.0"
+    }
+  },
+  "26 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/vite-plugin-externals/0.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-externals",
+      "rawSpec": "^0.3.0"
+    }
+  },
+  "27 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/vite-plugin-svg-icons/1.0.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-svg-icons",
+      "rawSpec": "^1.0.5"
+    }
+  },
+  "28 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/vite-plugin-vue-setup-extend/0.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-vue-setup-extend",
+      "rawSpec": "^0.1.0"
+    }
+  },
+  "29 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/vue-tsc/0.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-tsc",
+      "rawSpec": "^0.3.0"
+    }
+  },
+  "30 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/ant-design-vue/2.2.8",
+    "wanted": {
+      "dependentId": ".",
+      "name": "ant-design-vue",
+      "rawSpec": "^2.2.8"
+    }
+  },
+  "31 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/element-plus/1.2.0-beta.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "element-plus",
+      "rawSpec": "^1.2.0-beta.3"
+    }
+  },
+  "32 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/vue/3.2.22",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue",
+      "rawSpec": "^3.2.16"
+    }
+  },
+  "33 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@types/node/16.11.10",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "34 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@types/node/16.11.10",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "35 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vue/eslint-config-prettier/6.0.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "36 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vue/eslint-config-prettier/6.0.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "37 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vitejs/plugin-vue/1.10.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "38 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vitejs/plugin-vue/1.10.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "39 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.4.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "40 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.4.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "41 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vitejs/plugin-vue-jsx/1.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "42 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vitejs/plugin-vue-jsx/1.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "43 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@typescript-eslint/parser/5.4.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "44 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@typescript-eslint/parser/5.4.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "45 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vue/eslint-config-typescript/9.1.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "46 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@vue/eslint-config-typescript/9.1.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "47 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@zougt/vite-plugin-theme-preprocessor/1.4.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "48 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@zougt/vite-plugin-theme-preprocessor/1.4.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "49 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@zougt/some-loader-utils/1.4.0-beta.5",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "50 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/@zougt/some-loader-utils/1.4.0-beta.5",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "51 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/eslint-plugin-prettier/4.0.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "52 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/eslint-plugin-prettier/4.0.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "53 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/eslint/8.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "54 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/eslint/8.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "55 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/less-loader/10.2.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "56 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/less-loader/10.2.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "57 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/prettier/2.4.1",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "58 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/prettier/2.4.1",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "59 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/eslint-plugin-vue/8.1.1",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "60 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/eslint-plugin-vue/8.1.1",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "61 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/rollup-plugin-visualizer/5.5.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "62 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/rollup-plugin-visualizer/5.5.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "63 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/unplugin-element-plus/0.1.3",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "64 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/unplugin-element-plus/0.1.3",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "65 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/typescript/4.5.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "66 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/typescript/4.5.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "67 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/unplugin-vue-components/0.17.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "68 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/unplugin-vue-components/0.17.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "69 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-eslint/1.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "70 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-eslint/1.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "71 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/less/4.1.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "72 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/less/4.1.2",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "73 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite/2.6.14",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "74 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite/2.6.14",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "75 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-externals/0.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "76 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-externals/0.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "77 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-vue-setup-extend/0.1.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "78 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-vue-setup-extend/0.1.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "79 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-svg-icons/1.0.5",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "80 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vite-plugin-svg-icons/1.0.5",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "81 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vue-tsc/0.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "82 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vue-tsc/0.3.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "83 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/color/4.1.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "84 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/color/4.1.0",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "85 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vue/3.2.22",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "86 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/vue/3.2.22",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "87 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/ant-design-vue/2.2.8",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "88 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/ant-design-vue/2.2.8",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "89 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/element-plus/1.2.0-beta.3",
+    "requester": "D:\\github\\vite-config",
+    "status": "resolved"
+  },
+  "90 debug pnpm:progress": {
+    "packageId": "registry.npmmirror.com/element-plus/1.2.0-beta.3",
+    "requester": "D:\\github\\vite-config",
+    "status": "found_in_store"
+  },
+  "91 error pnpm": {
+    "code": "ERR_PNPM_FETCH_404",
+    "hint": "rollup-plugin-cdn-import is not in the npm registry, or you have no permission to fetch it.\n\nNo authorization header was set for the request.",
+    "request": {
+      "url": "https://registry.npmmirror.com/rollup-plugin-cdn-import"
+    },
+    "response": {
+      "size": 0
+    },
+    "pkgName": "rollup-plugin-cdn-import",
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "GET https://registry.npmmirror.com/rollup-plugin-cdn-import: Not Found - 404",
+      "code": "ERR_PNPM_FETCH_404",
+      "stack": "pnpm: GET https://registry.npmmirror.com/rollup-plugin-cdn-import: Not Found - 404\n    at RetryOperation._fn (C:\\Users\\staven\\AppData\\Local\\npm-cache\\_npx\\e6e0ed1aca658cae\\node_modules\\pnpm\\dist\\pnpm.cjs:85054:19)\n    at processTicksAndRejections (internal/process/task_queues.js:93:5)"
+    }
+  }
+}

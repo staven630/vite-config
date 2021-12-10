@@ -16,8 +16,10 @@
 - [√ ESlint 错误显示在浏览器中](#eslint)
 - [√ 提供 externals](#externals)
 - [√ 提供全局 less、scss 变量](#variables)
-- [√ 生成雪碧图](#sprite)
 - [√ 按需加载 ElementPlus、Ant Design Vue](#unplugin)
+- [√ 生成雪碧图](#sprite)
+- [√ CDN 加载类库](#cdn)
+- [√ 打包分析](#visualizer)
 - [√ esbuild error](#esbuild)
 <!--
 
@@ -117,13 +119,10 @@ import { UserConfig, ConfigEnv, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
-  process.env = {
-    ...process.env,
-    ...loadEnv(mode, process.cwd()),
-  }
+  let plugins = [vue()]
 
   return {
-    plugins: [vue()],
+    plugins,
   }
 }
 ```
@@ -152,15 +151,18 @@ interface ImportMeta {
 import { UserConfig, ConfigEnv, loadEnv } from 'vite'
 import path from 'path'
 
-const resolve = (dir) => path.resolve(__dirname, '.', dir)
+const nodeResolve = (dir) => path.resolve(__dirname, '.', dir)
 
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    resolve: {
-      alias: {
-        '@': resolve('src'),
-      },
+  const resolve = {
+    alias: {
+      '@': nodeResolve('src'),
+      '~': nodeResolve('public'),
     },
+  }
+
+  return {
+    resolve,
   }
 }
 ```
@@ -199,7 +201,7 @@ npx pnpm i -D @types/node
 import { UserConfig, ConfigEnv, loadEnv } from 'vite'
 import path from 'path'
 
-const resolve = (dir) => path.resolve(__dirname, '.', dir)
+const nodeResolve = (dir) => path.resolve(__dirname, '.', dir)
 
 export default ({ mode }: ConfigEnv): UserConfig => {
   return {
@@ -207,11 +209,11 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       alias: [
         {
           find: /@\//,
-          replacement: `${resolve('src')}/`,
+          replacement: `${nodeResolve('src')}/`,
         },
         {
           find: /@comps\//,
-          replacement: `${resolve('src/components')}/`,
+          replacement: `${nodeResolve('src/components')}/`,
         },
       ],
     },
@@ -223,18 +225,24 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
 ### <span id="proxy">✅ 配置代理 Proxy</span>
 
+&emsp;&emsp;Vitejs 的开发服务器选项[https://cn.vitejs.dev/config/#server-host](https://cn.vitejs.dev/config/#server-host)
+
 ```js
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    server: {
-      proxy: {
-        '/api': {
-          target: 'http://192.168.1.163:8081/',
-          changeOrigin: true,
-          rewrite: (url) => url.replace(/^\/api/, ''),
-        },
+  const server = {
+    host: '0.0.0.0',
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://192.168.1.163:8081/',
+        changeOrigin: true,
+        rewrite: (url) => url.replace(/^\/api/, ''),
       },
     },
+  }
+
+  return {
+    server,
   }
 }
 ```
@@ -267,8 +275,10 @@ npx pnpm i @vitejs/plugin-vue-jsx
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
+  let plugins = [vueJsx()]
+
   return {
-    plugins: [vueJsx()],
+    plugins,
   }
 }
 ```
@@ -287,7 +297,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
 ### <span id="sfc">✅ SFC 支持 name 属性</span>
 
-&emsp;&emsp;[vite-plugin-vue-setup-extend](https://github.com/anncwb/vite-plugin-vue-setup-extend)支持\<script setup>新增 name 属性
+&emsp;&emsp;[vite-plugin-vue-setup-extend](https://github.com/anncwb/vite-plugin-vue-setup-extend)支持&lt;script setup&gt;新增 name 属性
 
 ```sh
 npx pnpm i -D vite-plugin-vue-setup-extend
@@ -298,9 +308,13 @@ npx pnpm i -D vite-plugin-vue-setup-extend
 ```ts
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
-export default defineConfig({
-  plugins: [vueSetupExtend()],
-})
+export default ({ mode }: ConfigEnv): UserConfig => {
+  let plugins = [vueSetupExtend()]
+
+  return {
+    plugins,
+  }
+}
 ```
 
 [▲ 回顶部](#top)
@@ -320,13 +334,22 @@ import { UserConfig, ConfigEnv, loadEnv } from 'vite'
 import eslintPlugin from 'vite-plugin-eslint'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    plugins: [
+  const IS_PROD = ['prod', 'production'].includes(mode)
+
+  let plugins = []
+
+  if (!IS_PROD) {
+    plugins = [
+      ...plugins,
       eslintPlugin({
         cache: false,
         include: ['src/**/*.vue', 'src/**/*.ts', 'src/**/*.tsx'],
       }),
-    ],
+    ]
+  }
+
+  return {
+    plugins,
   }
 }
 ```
@@ -348,8 +371,13 @@ import { UserConfig, ConfigEnv, loadEnv } from 'vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    plugins: [
+  const IS_PROD = ['prod', 'production'].includes(mode)
+
+  let plugins = []
+
+  if (IS_PROD) {
+    plugins = [
+      ...plugins,
       viteExternalsPlugin({
         vue: 'Vue',
         react: 'React',
@@ -357,7 +385,11 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         // value support chain, tranform to window['React']['lazy']
         lazy: ['React', 'lazy'],
       }),
-    ],
+    ]
+  }
+
+  return {
+    plugins,
   }
 }
 ```
@@ -372,15 +404,16 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
 ```ts
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    css: {
-      preprocessorOptions: {
-        less: {
-          additionalData: `@injectedColor: red;`,
-          javascriptEnabled: true,
-        },
+  const css = {
+    preprocessorOptions: {
+      less: {
+        additionalData: `@injectedColor: red;`,
+        javascriptEnabled: true,
       },
     },
+  }
+  return {
+    css,
   }
 }
 ```
@@ -388,20 +421,18 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 - 通过导入 less 文件提供变量
 
 ```ts
-import path from 'path'
-
-const resolve = (dir) => path.resolve(__dirname, dir)
-
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    css: {
-      preprocessorOptions: {
-        less: {
-          additionalData: '@import "@/assets/less/variables.less";',
-          javascriptEnabled: true,
-        },
+  const css = {
+    preprocessorOptions: {
+      less: {
+        additionalData: '@import "@/assets/less/variables.less";',
+        javascriptEnabled: true,
       },
     },
+  }
+
+  return {
+    css,
   }
 }
 ```
@@ -412,75 +443,38 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
 ```ts
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `$injectedColor: orange;`,
-        },
+  const css = {
+    preprocessorOptions: {
+      less: {
+        additionalData: `$injectedColor: orange;`,
+        javascriptEnabled: true,
       },
     },
   }
+  return {
+    css,
+  }
 }
 ```
 
-- 通过导入 less 文件提供变量
+- 通过导入 scss 文件提供变量
 
 ```ts
-import path from 'path'
-
-const resolve = (dir) => path.resolve(__dirname, dir)
-
 export default ({ mode }: ConfigEnv): UserConfig => {
-  return {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "@/assets/scss/variables.scss";`,
-        },
+  const css = {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/assets/scss/variables.scss";`,
+        javascriptEnabled: true,
       },
     },
   }
-}
-```
 
-[▲ 回顶部](#top)
-
-### <span id="sprite">✅ 生成雪碧图</span>
-
-&emsp;&emsp;[vite-plugin-svg-icons](https://github.com/anncwb/vite-plugin-svg-icons)
-
-```sh
-npx pnpm i -D vite-plugin-svg-icons
-```
-
-> vite.config.ts
-
-```ts
-import { UserConfig, ConfigEnv, loadEnv } from 'vite'
-import viteSvgIcons from 'vite-plugin-svg-icons'
-
-import path from 'path'
-
-const resolve = (dir) => path.resolve(__dirname, dir)
-
-export default ({ mode }: ConfigEnv): UserConfig => {
   return {
-    plugins: [
-      viteSvgIcons({
-        // 指定需要缓存的图标文件夹
-        iconDirs: [resolve('icons')],
-        // 指定symbolId格式
-        symbolId: 'icon-[dir]-[name]',
-        // 是否压缩
-        svgoOptions: true,
-      }),
-    ],
+    css,
   }
 }
 ```
-
-&emsp;&emsp;使用方式见[https://github.com/anncwb/vite-plugin-svg-icons/blob/main/README.zh_CN.md](https://github.com/anncwb/vite-plugin-svg-icons/blob/main/README.zh_CN.md)
 
 [▲ 回顶部](#top)
 
@@ -506,13 +500,15 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import ElementPlus from 'unplugin-element-plus/vite'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
+  let plugins = [
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
+    ElementPlus({}),
+  ]
+
   return {
-    plugins: [
-      Components({
-        resolvers: [ElementPlusResolver()],
-      }),
-      ElementPlus({}),
-    ],
+    plugins,
   }
 }
 ```
@@ -532,12 +528,130 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
+  let plugins = [
+    Components({
+      resolvers: [AntDesignVueResolver()],
+    }),
+  ]
   return {
-    plugins: [
-      Components({
-        resolvers: [AntDesignVueResolver()],
+    plugins,
+  }
+}
+```
+
+[▲ 回顶部](#top)
+
+### <span id="sprite">✅ 生成雪碧图</span>
+
+&emsp;&emsp;[vite-plugin-svg-icons](https://github.com/anncwb/vite-plugin-svg-icons)
+
+```sh
+npx pnpm i -D vite-plugin-svg-icons
+```
+
+> vite.config.ts
+
+```ts
+import { UserConfig, ConfigEnv, loadEnv } from 'vite'
+import viteSvgIcons from 'vite-plugin-svg-icons'
+
+import path from 'path'
+
+const nodeResolve = (dir) => path.resolve(__dirname, dir)
+
+export default ({ mode }: ConfigEnv): UserConfig => {
+  let plugins = [
+    viteSvgIcons({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [nodeResolve('icons')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]',
+      // 是否压缩
+      svgoOptions: true,
+    }),
+  ]
+
+  return {
+    plugins,
+  }
+}
+```
+
+&emsp;&emsp;使用方式见[https://github.com/anncwb/vite-plugin-svg-icons/blob/main/README.zh_CN.md](https://github.com/anncwb/vite-plugin-svg-icons/blob/main/README.zh_CN.md)
+
+[▲ 回顶部](#top)
+
+### <span id="cdn">✅ CDN 加载类库</span>
+
+&emsp;&emsp;[vite-plugin-cdn-import](https://github.com/MMF-FE/vite-plugin-cdn-import)
+
+```sh
+npx pnpm i -D vite-plugin-cdn-import
+```
+
+> vite.config.ts
+
+```ts
+import { UserConfig, ConfigEnv, loadEnv } from 'vite'
+import importToCDN from 'vite-plugin-cdn-import'
+
+export default ({ mode }: ConfigEnv): UserConfig => {
+  const IS_PROD = ['prod', 'production'].includes(mode)
+
+  let plugins = []
+
+  if (IS_PROD) {
+    plugins = [
+      ...plugins,
+      importToCDN({
+        modules: [
+          {
+            name: 'cesium',
+            var: 'Cesium',
+            path: `https://cesium.com/downloads/cesiumjs/releases/1.88/Build/Cesium/Cesium.js`,
+          },
+          {
+            name: 'widgets',
+            path: `https://cesium.com/downloads/cesiumjs/releases/1.88/Build/Cesium/Widgets/widgets.css`,
+          },
+        ],
       }),
-    ],
+    ]
+  }
+
+  return {
+    plugins,
+  }
+}
+```
+
+[▲ 回顶部](#top)
+
+### <span id="visualizer">✅ 打包分析</span>
+
+&emsp;&emsp;[rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer)
+
+```sh
+npx pnpm i -D rollup-plugin-visualizer
+```
+
+> vite.config.ts
+
+```ts
+import { UserConfig, ConfigEnv, loadEnv } from 'vite'
+import { visualizer } from 'rollup-plugin-visualizer'
+
+export default ({ mode }: ConfigEnv): UserConfig => {
+  const IS_PROD = ['prod', 'production'].includes(mode)
+
+  let plugins = []
+
+  if (IS_PROD) {
+    plugins = [...plugins, visualizer()]
+  }
+
+  return {
+    plugins,
   }
 }
 ```
